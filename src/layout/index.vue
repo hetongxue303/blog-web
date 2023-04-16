@@ -58,6 +58,5 @@ const collapse = computed(() => setting.getCollapse)
     height: 100%;
     width: 100%;
     padding: 0;
-    background-color: darkseagreen;
 }
 </style>

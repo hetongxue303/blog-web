@@ -1,42 +1,14 @@
 <script setup lang="ts">
 import MenuItem from './components/menuItem.vue'
 import Logo from './components/logo.vue'
+import { data } from '../../data'
 
-const props = withDefaults(
+withDefaults(
     defineProps<{
         collapse: boolean
     }>(),
     {}
 )
-const data = [
-    {
-        title: '首页',
-        icon: 'icon-park-home',
-        path: '/dashboard'
-    },
-    {
-        title: '系统管理',
-        icon: 'icon-park-system',
-        path: '/system',
-        children: [
-            {
-                title: '用户管理',
-                icon: 'icon-park-user',
-                path: '/system/user'
-            },
-            {
-                title: '角色管理',
-                icon: 'icon-park-user',
-                path: '/system/user'
-            },
-            {
-                title: '菜单管理',
-                icon: 'icon-park-user',
-                path: '/system/user'
-            }
-        ]
-    }
-]
 </script>
 
 <template>

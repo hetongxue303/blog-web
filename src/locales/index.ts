@@ -4,15 +4,19 @@ import zh_cn from './lang/zh_cn'
 import en from './lang/en'
 import elementEnLocale from 'element-plus/lib/locale/lang/en'
 import elementZhLocale from 'element-plus/lib/locale/lang/zh-cn'
+import zhCN from 'vxe-table/lib/locale/lang/zh-CN'
+import enUS from 'vxe-table/lib/locale/lang/en-US'
 
 const messages = {
     zh_cn: {
         ...zh_cn,
-        ...elementZhLocale
+        ...elementZhLocale,
+        ...zhCN
     },
     en: {
         ...en,
-        ...elementEnLocale
+        ...elementEnLocale,
+        ...enUS
     }
 }
 

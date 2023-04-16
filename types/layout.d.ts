@@ -1,16 +1,6 @@
-export interface setType {
-    sidebar: {
-        opened: boolean
-        withoutAnimation: boolean
-        isClickCollapse: boolean
-    }
-    device: string
-    fixedHeader: boolean
-    classes: {
-        hideSidebar: boolean
-        openSidebar: boolean
-        withoutAnimation: boolean
-        mobile: boolean
-    }
-    hideTabs: boolean
+export interface MenuItem {
+    title: string
+    icon?: string
+    path?: string
+    children?: Array<MenuItem>
 }

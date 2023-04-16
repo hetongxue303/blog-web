@@ -45,6 +45,25 @@ export const routes: RouteRecordRaw[] = [
                 path: '/dashboard',
                 meta: { title: t('route.home') },
                 component: () => import('@views/dashboard/index.vue')
+            },
+            /* 以下动态 */
+            {
+                name: 'article',
+                path: '/blog/article',
+                meta: { title: '文章管理' },
+                component: () => import('@views/blog/article/index.vue')
+            },
+            {
+                name: 'tags',
+                path: '/blog/tags',
+                meta: { title: '标签管理' },
+                component: () => import('@views/blog/tags/index.vue')
+            },
+            {
+                name: 'category',
+                path: '/blog/category',
+                meta: { title: '分类管理' },
+                component: () => import('@views/blog/category/index.vue')
             }
         ]
     }

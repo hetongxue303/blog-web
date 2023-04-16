@@ -7,6 +7,8 @@ import 'element-plus/dist/index.css'
 import router from './router'
 import pinia from './store'
 import i18n from './locales'
+import VXETable from 'vxe-table'
+import 'vxe-table/lib/style.css'
 
 import '@assets/styles/index.scss'
 import 'virtual:windi.css'
@@ -30,6 +32,11 @@ const initiate = async () => {
     app.use(pinia)
 
     app.use(i18n)
+
+    VXETable.setup({
+        i18n: (key, args) => i18n.global.t(key, args)
+    })
+    app.use(VXETable)
 
     directives(app)
 
