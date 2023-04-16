@@ -1,3 +1,6 @@
+import { useCookies } from '@vueuse/integrations/useCookies'
+
+const Cookies = useCookies()
 /**
  * localStorage存储
  * @method get 获取
@@ -41,5 +44,14 @@ export const session = {
     },
     clear() {
         window.sessionStorage.clear()
+    }
+}
+
+export const cookies = {
+    getLanguage() {
+        return Cookies.get('i18nLang')
+    },
+    setLanguage(lang: any) {
+        return Cookies.set('i18nLang', lang)
     }
 }

@@ -1,6 +1,8 @@
 import { RouteRecordRaw } from 'vue-router'
 import Layout from '../../layout/index.vue'
+import i18n from '../../locales'
 
+const { t } = i18n.global
 export const routes: RouteRecordRaw[] = [
     {
         name: 'login',
@@ -34,14 +36,14 @@ export const routes: RouteRecordRaw[] = [
     },
     {
         path: '/',
-        name: 'main',
+        name: 'root',
         component: Layout,
         redirect: '/dashboard',
         children: [
             {
                 name: 'dashboard',
                 path: '/dashboard',
-                meta: { title: '首页' },
+                meta: { title: t('route.home') },
                 component: () => import('@views/dashboard/index.vue')
             }
         ]
