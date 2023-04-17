@@ -17,37 +17,37 @@ const props = withDefaults(
         small: true,
         disabled: false,
         background: true,
-        layout: 'total, sizes, prev, pager, next, jumper',
-        pageSizes: () => [5, 10, 15, 20, 50],
+        layout: 'jumper,prev,pager,next,sizes,total',
+        pageSizes: () => [10, 15, 20, 30, 50],
         prevText: '',
         nextText: '',
         hideOnSinglePage: false
     }
 )
 const emit = defineEmits<{
-    (e: 'current-change', currentPage: number): void
-    (e: 'size-change', currentPage: number): void
+    (e: 'change-page', currentPage: number): void
+    (e: 'change-size', currentPage: number): void
 }>()
-const handleCurrentChange = (value: number) => emit('current-change', value)
-const handleSizeChange = (value: number) => emit('size-change', value)
+const changePage = (value: number) => emit('change-page', value)
+const changeSize = (value: number) => emit('change-size', value)
 </script>
 
 <template>
     <el-pagination
         class="pagination"
-        :current-page="props.currentPage"
-        :page-size="props.pageSize"
-        :total="props.total"
+        :current-page="currentPage"
+        :page-size="pageSize"
+        :total="total"
         :page-sizes="props.pageSizes"
-        :small="props.small"
-        :disabled="props.disabled"
-        :background="props.background"
-        :layout="props.layout"
-        :prev-text="props.prevText"
-        :next-text="props.nextText"
-        :hide-on-single-page="props.hideOnSinglePage"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
+        :small="small"
+        :disabled="disabled"
+        :background="background"
+        :layout="layout"
+        :prev-text="prevText"
+        :next-text="nextText"
+        :hide-on-single-page="hideOnSinglePage"
+        @size-change="changeSize"
+        @current-change="changePage"
     />
 </template>
 

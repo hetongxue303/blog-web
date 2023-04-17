@@ -57,6 +57,5 @@ const collapse = computed(() => setting.getCollapse)
 :deep(.el-main) {
     height: 100%;
     width: 100%;
-    padding: 0;
 }
 </style>

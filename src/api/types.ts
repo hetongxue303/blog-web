@@ -4,6 +4,11 @@ export interface Search {
     keywords?: string
 }
 
+export interface Filter {
+    label: string
+    status: boolean
+}
+
 export interface Tags {
     id?: number
     name?: string
