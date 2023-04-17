@@ -1,6 +1,8 @@
 import { ElMessage, ElMessageBox, ElNotification, messageType } from 'element-plus'
+import i18n from '../locales'
 
 const DURATION_TIME = 1500
+const { t } = i18n.global
 // 消息框
 export const NotificationSuccess = (message: string, duration: number = DURATION_TIME) =>
     ElNotification.success({
@@ -49,12 +51,12 @@ export const MessageInfo = (message: string, duration: number = DURATION_TIME) =
 export const confirmBox = (
     text: string,
     tip: string,
-    type: messageType = 'warning',
+    type: messageType,
     confirm: () => void,
     cancel?: () => void,
     always?: () => void,
-    confirmText = '确认',
-    cancelText = '返回'
+    confirmText = t('button.confirm'),
+    cancelText = t('button.back')
 ): void => {
     ElMessageBox.confirm(text, tip, {
         confirmButtonText: confirmText,

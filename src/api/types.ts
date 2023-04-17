@@ -20,3 +20,14 @@ export interface Tags {
     updateBy?: number
     updateTime?: Date
 }
+export interface Category {
+    id?: number
+    name?: string
+    remark?: string
+    status?: boolean
+    isDel?: boolean
+    createBy?: number
+    createTime?: Date
+    updateBy?: number
+    updateTime?: Date
+}

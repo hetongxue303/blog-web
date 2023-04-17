@@ -8,7 +8,6 @@ export default {
         add: 'Add',
         delete: 'Delete',
         edit: 'Edit',
-        batchDelete: 'BatchDelete',
         upload: 'Upload',
         download: 'Download',
         refresh: 'Refresh',
@@ -16,11 +15,13 @@ export default {
         emptyText: 'No Data',
         operate: 'Operate',
         popConfirm: 'Are you sure to delete this data?',
+        popConfirms: 'Are you sure to delete the selected data?',
         tagNormal: 'Normal',
         tagEnable: 'Enable',
         tagDisable: 'Disable',
         success: 'Successful',
         fail: 'Fail',
+        tip: 'Tip',
         defaultRemark: 'Default: None'
     },
     button: {
@@ -29,6 +30,15 @@ export default {
     },
     page: {
         tags: {
+            ID: 'ID',
+            name: 'Name',
+            status: 'Status',
+            remark: 'Remark',
+            createTime: 'CreateTime',
+            updateTime: 'UpdateTime',
+            operate: 'Operate'
+        },
+        category: {
             ID: 'ID',
             name: 'Name',
             status: 'Status',

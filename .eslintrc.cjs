@@ -70,6 +70,7 @@ module.exports = {
         'no-control-regex': 0,
         'no-unused-vars': 0,
         'no-return-assign': 0,
+        'no-unused-expressions': 0,
         'no-use-before-define': 0,
         'no-console': 0,
         'no-shadow': 0,

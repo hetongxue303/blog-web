@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import Pagination from '@components/pagination/index.vue'
 import { useTags } from './hooks/useTags'
-import { onMounted, watch } from 'vue'
 import moment from 'moment'
 import { Reload } from '@icon-park/vue-next'
 import { MessageSuccess } from '../../../utils/element'
@@ -23,16 +22,12 @@ const {
     t,
     openDialog,
     dialogFormRules,
-    handleOperate
+    handleOperate,
+    handleDelete,
+    handleBatchDelete,
+    handleSelectionChange,
+    disableStatus
 } = useTags()
-
-watch(
-    () => search,
-    () => getTableData(),
-    { deep: true }
-)
-
-onMounted(() => getTableData())
 </script>
 
 <template>
@@ -49,7 +44,7 @@ onMounted(() => getTableData())
             <el-form-item prop="name" :label="t('page.tags.name')">
                 <el-input v-model="dialogForm.name" />
             </el-form-item>
-            <el-form-item v-show="dialogOperate !== 'add'" :label="t('page.tags.status')">
+            <el-form-item v-delEl="dialogOperate === 'add'" :label="t('page.tags.status')">
                 <el-radio-group v-model="dialogForm.status">
                     <el-radio-button :label="true">{{ t('common.tagEnable') }}</el-radio-button>
                     <el-radio-button :label="false">{{ t('common.tagDisable') }}</el-radio-button>
@@ -76,14 +71,15 @@ onMounted(() => getTableData())
         <el-row :gutter="10">
             <el-col :span="20">
                 <el-button type="success" @click="openDialog('add')">{{ t('common.add') }}</el-button>
-                <el-button type="danger">{{ t('common.delete') }}</el-button>
-                <el-button type="warning" disabled>{{ t('common.batchDelete') }}</el-button>
+                <el-button type="danger" :disabled="disableStatus" @click="handleBatchDelete">{{ t('common.delete') }} </el-button>
             </el-col>
             <el-col :span="4">
                 <el-tooltip effect="light" :content="t('common.upload')" placement="top" :show-after="500">
+                    <!--TODO-->
                     <el-button icon="Upload" class="grid-button" @click="MessageSuccess('待开发')" />
                 </el-tooltip>
                 <el-tooltip effect="light" :content="t('common.download')" placement="top" :show-after="500">
+                    <!--TODO-->
                     <el-button icon="Download" class="grid-button" @click="MessageSuccess('待开发')" />
                 </el-tooltip>
                 <el-tooltip effect="light" :content="t('common.refresh')" placement="top" :show-after="500">
@@ -107,7 +103,9 @@ onMounted(() => getTableData())
             :empty-text="t('common.emptyText')"
             tooltip-effect="light"
             :header-row-style="{ color: '#575656' }"
+            @selection-change="handleSelectionChange"
         >
+            <el-table-column type="selection" width="30" align="center" />
             <el-table-column v-if="filterColumns[0].status" :label="filterColumns[0].label" prop="id" />
             <el-table-column v-if="filterColumns[1].status" :label="filterColumns[1].label" prop="name" />
             <el-table-column v-if="filterColumns[2].status" :label="filterColumns[2].label">
@@ -135,12 +133,11 @@ onMounted(() => getTableData())
             <el-table-column v-if="filterColumns[6].status" :label="filterColumns[6].label" align="center" width="180">
                 <template #default="{ row }">
                     <el-button type="primary" @click="openDialog('edit', row)">{{ t('common.edit') }}</el-button>
-                    <el-popconfirm :title="t('common.popConfirm')" @confirm="MessageSuccess('待开发')">
+                    <el-popconfirm :title="t('common.popConfirm')" @confirm="handleDelete(row.id)">
                         <template #reference>
                             <el-button type="danger">{{ t('common.delete') }}</el-button>
                         </template>
                     </el-popconfirm>
-                    <span v-show="false"> {{ row.id }}</span>
                 </template>
             </el-table-column>
         </el-table>
