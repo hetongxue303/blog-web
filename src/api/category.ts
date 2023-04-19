@@ -1,6 +1,12 @@
 import axios, { base_url } from '../utils/request'
 import { Category, Search } from './types'
 
+export const searchCategoryUrl = (keywords?: string) => {
+    return axios({ method: 'GET', url: `${base_url}/category/search`, params: { keywords } })
+}
+export const getCategoryAllUrl = () => {
+    return axios({ method: 'GET', url: `${base_url}/category/all` })
+}
 export const getCategoryListUrl = (params: Search) => {
     return axios({ method: 'GET', url: `${base_url}/category/list`, params })
 }

@@ -7,6 +7,11 @@ export const data: MenuItem[] = [
         path: '/dashboard'
     },
     {
+        title: '写博客',
+        icon: 'icon-park-home',
+        path: '/write'
+    },
+    {
         title: '博客管理',
         icon: 'icon-park-home',
         path: '/blog',

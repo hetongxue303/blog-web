@@ -7,6 +7,7 @@ export default {
         search: '查询',
         add: '新增',
         delete: '删除',
+        batchDelete: '批量删除',
         edit: '编辑',
         upload: '上传',
         download: '下载',
@@ -29,6 +30,13 @@ export default {
         back: '返回'
     },
     page: {
+        common: {
+            ID: 'ID',
+            status: '状态',
+            createTime: '创建时间',
+            updateTime: '更新时间',
+            operate: '操作'
+        },
         tags: {
             ID: 'ID',
             name: '名称',
@@ -43,6 +51,24 @@ export default {
             name: '名称',
             status: '状态',
             remark: '备注',
+            createTime: '创建时间',
+            updateTime: '更新时间',
+            operate: '操作'
+        },
+        article: {
+            ID: 'ID',
+            user: '作者',
+            tag: '标签',
+            category: '分类',
+            thumbnail: '封面',
+            title: '标题',
+            content: '内容',
+            isTop: '置顶',
+            isFeatured: '推荐',
+            status: '状态',
+            type: '类型',
+            password: '访问密码',
+            originalUrl: '原文链接',
             createTime: '创建时间',
             updateTime: '更新时间',
             operate: '操作'

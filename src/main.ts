@@ -19,6 +19,9 @@ import { install } from '@icon-park/vue-next/es/all'
 import 'virtual:svg-icons-register'
 import SvgIcon from '@components/svg-icon/index.vue'
 
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+
 const app = createApp(App)
 
 const initiate = async () => {
@@ -28,6 +31,8 @@ const initiate = async () => {
     app.use(ElementPlus)
 
     app.use(router)
+
+    app.use(mavonEditor)
 
     app.use(pinia)
 

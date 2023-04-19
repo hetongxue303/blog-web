@@ -7,6 +7,7 @@ export default {
         search: 'Search',
         add: 'Add',
         delete: 'Delete',
+        batchDelete: 'BatchDelete',
         edit: 'Edit',
         upload: 'Upload',
         download: 'Download',
@@ -29,6 +30,13 @@ export default {
         back: 'Back'
     },
     page: {
+        common: {
+            ID: 'ID',
+            status: 'Status',
+            createTime: 'CreateTime',
+            updateTime: 'UpdateTime',
+            operate: 'Operate'
+        },
         tags: {
             ID: 'ID',
             name: 'Name',
@@ -43,6 +51,24 @@ export default {
             name: 'Name',
             status: 'Status',
             remark: 'Remark',
+            createTime: 'CreateTime',
+            updateTime: 'UpdateTime',
+            operate: 'Operate'
+        },
+        article: {
+            ID: 'ID',
+            user: 'Author',
+            tagId: 'Tag',
+            categoryId: 'Category',
+            thumbnail: 'Cover',
+            title: 'Title',
+            content: 'Content',
+            isTop: 'Top',
+            isFeatured: 'Featured',
+            status: 'Status',
+            type: 'Type',
+            password: 'AccessPassword',
+            originalUrl: 'OriginalLink',
             createTime: 'CreateTime',
             updateTime: 'UpdateTime',
             operate: 'Operate'

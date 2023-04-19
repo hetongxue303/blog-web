@@ -71,7 +71,7 @@ const {
         <el-row :gutter="10">
             <el-col :span="20">
                 <el-button type="success" @click="openDialog('add')">{{ t('common.add') }}</el-button>
-                <el-button type="danger" :disabled="disableStatus" @click="handleBatchDelete">{{ t('common.delete') }} </el-button>
+                <el-button type="danger" :disabled="disableStatus" @click="handleBatchDelete">{{ t('common.batchDelete') }} </el-button>
             </el-col>
             <el-col :span="4">
                 <el-tooltip effect="light" :content="t('common.upload')" placement="top" :show-after="500">

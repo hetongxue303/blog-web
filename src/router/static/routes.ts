@@ -48,6 +48,12 @@ export const routes: RouteRecordRaw[] = [
             },
             /* 以下动态 */
             {
+                name: 'write',
+                path: '/write',
+                meta: { title: '写博客' },
+                component: () => import('@views/write/index.vue')
+            },
+            {
                 name: 'article',
                 path: '/blog/article',
                 meta: { title: '文章管理' },
