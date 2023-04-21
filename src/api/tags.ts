@@ -1,6 +1,12 @@
 import axios, { base_url } from '../utils/request'
 import { Search, Tags } from './types'
 
+export const searchTagsUrl = (keywords?: string) => {
+    return axios({ method: 'GET', url: `${base_url}/tags/search`, params: { keywords } })
+}
+export const getTagAllUrl = () => {
+    return axios({ method: 'GET', url: `${base_url}/tags/all` })
+}
 export const getTagListUrl = (params: Search) => {
     return axios({ method: 'GET', url: `${base_url}/tags/list`, params })
 }

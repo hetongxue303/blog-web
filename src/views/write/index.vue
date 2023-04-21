@@ -2,16 +2,23 @@
 import { useWrite } from './hooks/useWrite'
 import { getCategoryAllUrl, searchCategoryUrl } from '../../api/category'
 import { ref, watch } from 'vue'
-import { Category } from '../../api/types'
+import { Category, Tags } from '../../api/types'
 import { cloneDeep } from 'lodash-es'
+import { getTagAllUrl, searchTagsUrl } from '../../api/tags'
 
-const { openDialog, content, dialogShow, dialogForm, dialogFormRules, dialogFormRef, t } = useWrite()
+const { openDialog, content, dialogShow, dialogForm, dialogFormRules, dialogFormRef, t, handleOperate } = useWrite()
 const categoryAll = ref<Category[]>([])
-const keywords = ref<string | undefined>(undefined)
-
-const getAll = () => {
+const tagsAll = ref<Tags[]>([])
+const tagKeywords = ref<string | undefined>(undefined)
+const categoryKeywords = ref<string | undefined>(undefined)
+const imageUrl = ref('')
+const getCategoryAll = () => {
     getCategoryAllUrl().then(({ data }) => (categoryAll.value = data.code === 200 ? cloneDeep(data.data) : []))
 }
+const getTagAll = () => {
+    getTagAllUrl().then(({ data }) => (tagsAll.value = data.code === 200 ? cloneDeep(data.data) : []))
+}
+
 const searchCategory = (keywords: string, cb: (arg: any) => void) => {
     searchCategoryUrl(keywords).then(({ data }) => (data.code === 200 ? cb(cloneDeep(data.data)) : cb([])))
 }
@@ -27,10 +34,28 @@ const clickCategoryItem = (item: Category) => {
     dialogForm.value.categoryId = item.id
 }
 
+const searchTags = (keywords: string, cb: (arg: any) => void) => {
+    searchTagsUrl(keywords).then(({ data }) => (data.code === 200 ? cb(cloneDeep(data.data)) : cb([])))
+}
+const removeTags = () => (dialogForm.value.tagId = undefined)
+const handleSelectTags = (item: Tags) => {
+    console.log(item)
+}
+const saveTags = (item: Tags) => {
+    console.log(item)
+}
+const clickTagsItem = (item: Tags) => {
+    dialogForm.value.tag = item
+    dialogForm.value.tagId = item.id
+}
+
 watch(
     () => dialogShow.value,
     (value) => {
-        if (value) getAll()
+        if (value) {
+            getCategoryAll()
+            getTagAll()
+        }
     },
     { deep: true }
 )
@@ -62,7 +87,7 @@ watch(
             <el-form-item prop="title" label="文章标题">
                 <el-input v-model="dialogForm.title" placeholder="输入文章标题" />
             </el-form-item>
-            <el-form-item prop="tagId" label="文章标签">
+            <el-form-item prop="tagId" label="文章分类">
                 <el-tag
                     v-show="dialogForm.categoryId"
                     size="large"
@@ -77,7 +102,7 @@ watch(
                 <el-popover v-if="!dialogForm.categoryId" placement="bottom-start" :width="460" trigger="click">
                     <div class="popover-title">分类</div>
                     <el-autocomplete
-                        v-model="keywords"
+                        v-model="categoryKeywords"
                         :fetch-suggestions="searchCategory"
                         :trigger-on-focus="false"
                         style="width: 100%"
@@ -98,6 +123,66 @@ watch(
                     </template>
                 </el-popover>
             </el-form-item>
+            <el-form-item prop="tagId" label="文章标签">
+                <el-tag
+                    v-show="dialogForm.tagId"
+                    size="large"
+                    disable-transitions
+                    type="success"
+                    style="margin: 0 1rem 0 0"
+                    :closable="true"
+                    @close="removeTags"
+                >
+                    {{ dialogForm.tag?.name }}
+                </el-tag>
+                <el-popover v-if="!dialogForm.tagId" placement="bottom-start" :width="460" trigger="click">
+                    <div class="popover-title">标签</div>
+                    <el-autocomplete
+                        v-model="tagKeywords"
+                        :fetch-suggestions="searchTags"
+                        :trigger-on-focus="false"
+                        style="width: 100%"
+                        clearable
+                        placeholder="请输入标签名搜索，回车可添加自定义标签"
+                        @keyup.enter="saveTags"
+                        @select="handleSelectTags"
+                    >
+                        <template #default="{ item }"> {{ item.name }}</template>
+                    </el-autocomplete>
+                    <div class="popover-container">
+                        <div v-for="item in tagsAll" :key="item" class="category-item" @click="clickTagsItem(item)">
+                            {{ item.name }}
+                        </div>
+                    </div>
+                    <template #reference>
+                        <el-button type="primary" plain> 添加标签</el-button>
+                    </template>
+                </el-popover>
+            </el-form-item>
+            <el-form-item prop="thumbnail" label="文章封面">
+                <el-upload
+                    class="avatar-uploader"
+                    drag
+                    multiple
+                    action=""
+                    :show-file-list="false"
+                    :on-success="handleAvatarSuccess"
+                    :before-upload="beforeAvatarUpload"
+                >
+                    <img v-if="imageUrl" :src="imageUrl" class="avatar" alt="" />
+                    <el-icon v-else class="avatar-uploader-icon" :size="67">
+                        <component is="upload-filled" />
+                    </el-icon>
+                    <div class="el-upload__text">将文件拖到此处，<em>或点击上传</em></div>
+                </el-upload>
+            </el-form-item>
+            <el-form-item prop="type" label="文章类型">
+                <el-radio-group v-model="dialogForm.type">
+                    <el-radio-button :label="1">原创</el-radio-button>
+                    <el-radio-button :label="2">转载</el-radio-button>
+                    <el-radio-button :label="3">翻译</el-radio-button>
+                </el-radio-group>
+            </el-form-item>
             <el-form-item prop="isTop" label="文章置顶">
                 <el-switch v-model="dialogForm.isTop" />
             </el-form-item>
@@ -107,27 +192,6 @@ watch(
             <el-form-item prop="password" :label="t('page.article.password')">
                 <el-switch v-model="dialogForm.password" />
             </el-form-item>
-            <el-form-item prop="type" label="文章类型">
-                <el-radio-group v-model="dialogForm.type">
-                    <el-radio-button :label="1">原创</el-radio-button>
-                    <el-radio-button :label="2">转载</el-radio-button>
-                    <el-radio-button :label="3">翻译</el-radio-button>
-                </el-radio-group>
-            </el-form-item>
-            <!--            <el-form-item prop="thumbnail" :label="t('page.article.thumbnail')">-->
-            <!--                <el-upload-->
-            <!--                    class="avatar-uploader"-->
-            <!--                    action=""-->
-            <!--                    :show-file-list="false"-->
-            <!--                    :on-success="handleAvatarSuccess"-->
-            <!--                    :before-upload="beforeAvatarUpload"-->
-            <!--                >-->
-            <!--                    <img v-if="imageUrl" :src="imageUrl" class="avatar" alt="" />-->
-            <!--                    <el-icon v-else class="avatar-uploader-icon">-->
-            <!--                        <component is="plus" />-->
-            <!--                    </el-icon>-->
-            <!--                </el-upload>-->
-            <!--            </el-form-item>-->
         </el-form>
         <template #footer>
             <el-button text type="danger" @click="dialogShow = false">{{ t('button.back') }}</el-button>
@@ -137,24 +201,22 @@ watch(
 </template>
 
 <style scoped lang="scss">
-.avatar-uploader .el-upload {
+:deep(.avatar-uploader) {
     border: 1px dashed var(--el-border-color);
     border-radius: 6px;
     cursor: pointer;
     position: relative;
     overflow: hidden;
     transition: var(--el-transition-duration-fast);
+    width: 400px;
+
+    &:hover {
+        border-color: var(--el-color-primary);
+    }
 }
 
-.avatar-uploader .el-upload:hover {
-    border-color: var(--el-color-primary);
-}
-
-.el-icon.avatar-uploader-icon {
-    font-size: 28px;
+.avatar-uploader-icon {
     color: #8c939d;
-    width: 178px;
-    height: 178px;
     text-align: center;
 }
 

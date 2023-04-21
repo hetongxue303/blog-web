@@ -15,6 +15,16 @@ export function useWrite() {
         dialogShow.value = true
     }
 
+    const handleOperate = async (formEl?: FormInstance) => {
+        if (!formEl) return
+        await formEl.validate(async (valid) => {
+            if (valid) {
+                const { value } = dialogForm
+                console.log(value)
+            }
+        })
+    }
+
     return {
         t,
         dialogForm,
@@ -22,6 +32,7 @@ export function useWrite() {
         dialogFormRef,
         dialogFormRules,
         content,
-        openDialog
+        openDialog,
+        handleOperate
     }
 }
