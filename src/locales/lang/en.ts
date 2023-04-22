@@ -58,9 +58,9 @@ export default {
         article: {
             ID: 'ID',
             user: 'Author',
-            tagId: 'Tag',
-            categoryId: 'Category',
-            thumbnail: 'Cover',
+            tag: 'Tag',
+            category: 'Category',
+            cover: 'Cover',
             title: 'Title',
             content: 'Content',
             isTop: 'Top',
@@ -69,7 +69,7 @@ export default {
             type: 'Type',
             password: 'AccessPassword',
             originalUrl: 'OriginalLink',
-            createTime: 'CreateTime',
+            createTime: 'ReleaseTime',
             updateTime: 'UpdateTime',
             operate: 'Operate'
         }

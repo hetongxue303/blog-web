@@ -60,7 +60,7 @@ export default {
             user: '作者',
             tag: '标签',
             category: '分类',
-            thumbnail: '封面',
+            cover: '封面',
             title: '标题',
             content: '内容',
             isTop: '置顶',
@@ -69,7 +69,7 @@ export default {
             type: '类型',
             password: '访问密码',
             originalUrl: '原文链接',
-            createTime: '创建时间',
+            createTime: '发布时间',
             updateTime: '更新时间',
             operate: '操作'
         }

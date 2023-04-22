@@ -71,34 +71,39 @@ const {
         >
             <el-table-column type="selection" width="30" align="center" />
             <el-table-column v-if="filterColumns[0].status" :label="filterColumns[0].label" prop="id" />
-            <el-table-column v-if="filterColumns[1].status" :label="filterColumns[1].label" prop="thumbnail" />
-            <el-table-column v-if="filterColumns[2].status" :label="filterColumns[2].label" prop="title" />
-            <el-table-column v-if="filterColumns[3].status" :label="filterColumns[3].label" prop="category.name" />
-            <el-table-column v-if="filterColumns[4].status" :label="filterColumns[4].label">
+            <el-table-column v-if="filterColumns[1].status" :label="filterColumns[1].label" prop="cover" width="100">
                 <template #default="{ row }">
-                    <el-tag disable-transitions :type="row.tag ? 'success' : 'danger'">
-                        {{ row.tag ? t('common.tagNormal') : t('common.tagDisable') }}
-                    </el-tag>
+                    <el-image :src="row.cover" style="height: 60px; width: 90px" fit="fill" />
                 </template>
             </el-table-column>
-            <el-table-column v-if="filterColumns[5].status" :label="filterColumns[5].label">
+            <el-table-column v-if="filterColumns[2].status" :label="filterColumns[2].label" prop="title" :show-overflow-tooltip="true" width="160" />
+            <el-table-column v-if="filterColumns[3].status" :label="filterColumns[3].label" prop="categoryId" />
+            <el-table-column v-if="filterColumns[4].status" :label="filterColumns[4].label" prop="tagId" />
+            <el-table-column v-if="filterColumns[5].status" :label="filterColumns[5].label" prop="type">
                 <template #default="{ row }">
                     <span v-if="row.type === 1">原创</span>
                     <span v-else-if="row.type === 2">转载</span>
                     <span v-else>翻译</span>
                 </template>
             </el-table-column>
-            <el-table-column v-if="filterColumns[6].status" :label="filterColumns[6].label" prop="isTop" />
-            <el-table-column v-if="filterColumns[7].status" :label="filterColumns[7].label" prop="isTop" />
-
-            <el-table-column v-if="filterColumns[8].status" :label="filterColumns[8].label">
+            <el-table-column v-if="filterColumns[6].status" :label="filterColumns[6].label" prop="isTop">
+                <template #default="{ row }">
+                    <el-switch v-model="row.isTop" />
+                </template>
+            </el-table-column>
+            <el-table-column v-if="filterColumns[7].status" :label="filterColumns[7].label" prop="isFeatured">
+                <template #default="{ row }">
+                    <el-switch v-model="row.isFeatured" />
+                </template>
+            </el-table-column>
+            <el-table-column v-if="filterColumns[8].status" :label="filterColumns[8].label" prop="createTime" :show-overflow-tooltip="true">
                 <template #default="{ row }">
                     {{ moment(row.createTime).format('YYYY-MM-DD HH:mm:ss') }}
                 </template>
             </el-table-column>
-            <el-table-column v-if="filterColumns[9].status" :label="filterColumns[9].label">
+            <el-table-column v-if="filterColumns[9].status" :label="filterColumns[9].label" prop="updateTime" :show-overflow-tooltip="true">
                 <template #default="{ row }">
-                    {{ moment(row.createTime).format('YYYY-MM-DD HH:mm:ss') }}
+                    {{ moment(row.updateTime).format('YYYY-MM-DD HH:mm:ss') }}
                 </template>
             </el-table-column>
 

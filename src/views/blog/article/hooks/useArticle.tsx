@@ -5,7 +5,7 @@ import { delayRequest } from '../../../../utils/common'
 import { clone, cloneDeep } from 'lodash-es'
 import { FormInstance, FormRules } from 'element-plus'
 import { Article, Filter, Search } from '../../../../api/types'
-import { addArticleUrl, batchDeleteArticleUrl, deleteArticleUrl, getArticleListUrl, updateArticleUrl } from '../../../../api/article'
+import { batchDeleteArticleUrl, deleteArticleUrl, getArticleListUrl, updateArticleUrl } from '../../../../api/article'
 
 export function useArticle() {
     const tableData = ref<Article[]>([])
@@ -17,7 +17,7 @@ export function useArticle() {
     const { t } = i18n.global
     const filterColumns = ref<Filter[]>([
         { label: t('page.article.ID'), status: false },
-        { label: t('page.article.thumbnail'), status: true },
+        { label: t('page.article.cover'), status: true },
         { label: t('page.article.title'), status: true },
         { label: t('page.article.category'), status: true },
         { label: t('page.article.tag'), status: true },
@@ -37,11 +37,6 @@ export function useArticle() {
             return
         }
         NotificationError(t('common.fail'))
-    }
-    const add = (value: Article) => {
-        addArticleUrl(value)
-            .then(async ({ data }) => result(data, true))
-            .catch(({ response }) => MessageWarning(response.data.message))
     }
 
     const handleDelete = (id: number) => deleteArticleUrl(id).then(async ({ data }) => result(data))
@@ -101,16 +96,6 @@ export function useArticle() {
         dialogOperate.value = operate
     }
 
-    const handleOperate = async (formEl?: FormInstance) => {
-        if (!formEl) return
-        await formEl.validate(async (valid) => {
-            if (valid) {
-                const { value } = dialogForm
-                dialogOperate.value === 'add' ? add(value) : update(value)
-            }
-        })
-    }
-
     watch(
         () => search,
         () => getTableData(),
@@ -154,7 +139,6 @@ export function useArticle() {
         changePage,
         changeSize,
         openDialog,
-        handleOperate,
         handleDelete,
         handleBatchDelete,
         handleSelectionChange

@@ -40,14 +40,14 @@ export interface Article {
     tag?: Tags
     categoryId?: number
     category?: Category
-    thumbnail?: string
+    cover?: string
     title?: string
     content?: string
     isTop?: boolean
     isFeatured?: boolean
-    status?: boolean
+    status?: number
     type?: number
-    password?: string
+    authority?: number
     originalUrl?: string
     isDel?: boolean
     createBy?: number
