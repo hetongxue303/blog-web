@@ -9,16 +9,13 @@ import pinia from './store'
 import i18n from './locales'
 import VXETable from 'vxe-table'
 import 'vxe-table/lib/style.css'
-
 import '@assets/styles/index.scss'
 import 'virtual:windi.css'
 import 'animate.css'
 import '@/router/permission'
 import { install } from '@icon-park/vue-next/es/all'
-
 import 'virtual:svg-icons-register'
 import SvgIcon from '@components/svg-icon/index.vue'
-
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 
